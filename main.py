@@ -4,10 +4,10 @@ from sklearn import tree
 from sklearn.feature_extraction.text import CountVectorizer
 import requests
 
-print("Input movies you like, dislike, and the ones you are curious about!")
+print("WELCOME TO PYBOXD!")
 print("Data used for predictions: overview, genre, and director of the movie.")
-print("Prediction: Like/Probably Like/Probably Dislike/Dislike based on movies you are Curious about")
-print("Added Bonus: Predicts top 20 rated movies on the entire database you will enjoy.")
+print("Prediction: Movies that you are curious about categorised as Like/Probably Like/Probably Dislike/Dislike")
+print("Also Predicts top 20 rated movies on the entire database that you will enjoy")
 print("Please be careful to input a movie title as it is! Happy Testing and Happy Watching! - Dania :)")
 print()
 
@@ -26,18 +26,19 @@ mostpopular_titles = []
 # Overview, Genre IDs, and Director Name for the top 20 rated movies stored here for machine to make a decision
 mostpopular_texts = []
 
+# INPUT 
 
 '''
 # The following lines are for taking input for the user and populating the arrays initialized above. 
-i = int(input("How many movies that you like are you entering? "))
+i = int(input("How many movies that you like are you entering?"))
 
 for x in range(i):
-  movieName = input("Enter the name of a movie you liked: ")
+  movieName = input("Enter the name of a movie you like: ")
   positive_titles.append(movieName)
 
 print()
 
-i = int(input("How many movies that you don't like are you entering? "))
+i = int(input("How many movies that you dislike are you entering? "))
 
 for x in range(i):
   movieName = input("Enter the name of a movie you didn't like: ")
@@ -45,15 +46,12 @@ for x in range(i):
 
 print()
 
-i = int(input("How many movies you're curious about are you entering?"))
+i = int(input("How many movies that you're curious about are you entering?"))
 
 for x in range(i):
-  movieName = input("Enter the name of a movie you want to check: ")
+  movieName = input("Enter the name of a movie you're curious about: ")
   tobetested.append(movieName)
-
-print()
-print()
-print()
+  
 '''
 
 # Testing Set Values
@@ -63,7 +61,7 @@ positive_titles = ["Toy Story", "Big Hero 6", "Trolls World Tour", "Jumanji: The
 
 tobetested = ["Aladdin", "Frozen", "Coco", "Mad Max: Fury Road", "Pets 2", "Incredibles 2", "Scream", "Zootopia", "Inside Out", "Top Gun: Maverick", "Trolls", "Shrek"]
 
-# ALGO
+# ALGORITHM
 # Goes through the movies that the user likes and pulls the above mentioned parameters from The Movie Database to store in training_texts[]
 for x in range(len(positive_titles)):
   directors = []
@@ -209,11 +207,8 @@ for x in likeDict:
 print()
 print()
 
-
-
-
-
-#Uses the connections the code made in previous steps to test each of the parameters of each movies in the top 20 rated list and returns if the user will like/not like/probabaly like/probabaly not like based on the results.
+# Uses the connections the code made in previous steps to test each of the parameters of each movies in the top 20 rated list
+# Returns if the user will like/not like/probabaly like/probabaly not like based on the results
 likeDict = {
   "like" : "",
   "will probably like" : "",
@@ -245,9 +240,6 @@ for x in likeDict:
     print("You", x, likeDict[x][0:-2])
     print()
 
-
-
-
 # Looking at how the code makes its decisions visually is a lot easier so I export the model to the db.dot file
 # Upon copying all the data in db.dot and pasting it in the textbox on http://www.webgraphviz.com/
 # You can see what the decision making process looks like.
@@ -257,5 +249,3 @@ tree.export_graphviz(
     feature_names = vectorizer.get_feature_names_out(),
     class_names = ["bad","good"]
 )
-
-
